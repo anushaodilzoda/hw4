@@ -11,6 +11,7 @@ nextButton.addEventListener('click', () => {
   currentQuestionIndex++
   setNextQuestion()
 })
+var c = 40;
 
 function startGame() {
   startButton.classList.add('hide')
@@ -76,6 +77,8 @@ function clearStatusClass(element) {
   element.classList.remove('wrong')
 }
 
+
+
 var questions = [
   {
     question: 'Who was the first president of the United States?',
@@ -115,3 +118,4 @@ var questions = [
     ]
   }
 ]
+
