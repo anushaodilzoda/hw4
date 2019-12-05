@@ -1,31 +1,290 @@
+
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="style.css" rel="stylesheet">
-  <script defer src="script.js"></script>
-  <title>Quiz App</title>
+    <meta charset="utf-8" />
+    <title> Quiz Game</title>
 </head>
 <body>
-  <div class="container">
-    <div id="question-container" class="hide">
-      <div id="question">Question</div>
-      <div id="answer-buttons" class="btn-grid">
-      
-        <button class="btn">Answer 1</button>
-        <button class="btn">Answer 2</button>
-        <button class="btn">Answer 3</button>
-        <button class="btn">Answer 4</button>
-      </div>
+    <style>
+        #frame001 {
+            border-radius: 5px;
+            background-color: white;
+            border: 2px solid black;
+            height: 350px;
+            width: 400px;
+        }
+
+        .buttons001 {
+            background-color: dodgerblue;
+            color: white;
+            width: 70px;
+            height: 30px;
+            border-radius: 5px;
+        }
+
+        .buttons002 {
+            background-color: blue;
+            color: white;
+            width: 70px;
+            height: 30px;
+            border-radius: 5px;
+        }
+
+        #font001 {
+            text-align: center;
+            font-size: large;
+            color: black;
+        }
+    </style>
+     
+    <div id="frame001">
+        <div id="font001">
+            <h2>Start Quiz</h2><text>Question: <text id="number001">0</text></text><br />
+            <text>Score: <text id="score001">0</text></text><br />
+            <text>Time: <text id="time001">40</text></text><br />
+            <hr />
+            <div class="container">
+                    <div id="question-container" class="hide">
+                      <div id="question">Question</div>
+                      <div id="answer-buttons" class="btn-grid">
+                      
+                        <button class="btn">Answer 1</button>
+                        <button class="btn">Answer 2</button>
+                        <button class="btn">Answer 3</button>
+                        <button class="btn">Answer 4</button>
+                      </div>
+                    </div>
+                    <div class="controls">
+                    
+                    </div>
+                  </div>
+            <div id="disappear001">
+                <button class="buttons002" onclick="begin001()">Begin</button>
+            </div>
+            <p id="message001"></p>
+            <p id="message002"></p>
+            <p id="message003"></p>
+            <p id="message004"></p>
+        </div>
     </div>
-    <div class="controls">
-      
-      <button id="start-btn" class="start-btn btn">Start Quiz</button>
-      <button id="next-btn" class="next-btn btn hide">Next</button>
-    </div>
-  </div>
+    <script>
+        var question001 = ["Who was the first president of the United States?.",
+            "When was the Declaration of Independence signed?.",
+            "Who was the youngest president of the USA?.",
+            "What is the largest State in the USA?.",
+            
+        ];
+
+        var a = 0;
+        a++;
+        var b = 0;
+        b++;
+
+        function begin001() {
+            c = 40;
+            disappear001.innerHTML = "";
+            message001.innerHTML = question001[0];
+            message002.innerHTML = options001;
+            number001.innerHTML = a++;
+        }
+        function showQuestion(question) {
+  questionElement.innerText = question.question
+  question.answers.forEach(answer => {
+    var button = document.createElement('button')
+    button.innerText = answer.text
+    button.classList.add('btn')
+    if (answer.correct) {
+      button.dataset.correct = answer.correct
+    }
+    button.addEventListener('click', selectAnswer)
+    answerButtonsElement.appendChild(button)
+  })
+}
+
+function resetState() {
+  clearStatusClass(document.body)
+  nextButton.classList.add('hide')
+  while (answerButtonsElement.firstChild) {
+    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+  }
+}
+
+function selectAnswer(e) {
+  var  selectedButton = e.target
+  var correct = selectedButton.dataset.correct
+  setStatusClass(document.body, correct)
+  Array.from(answerButtonsElement.children).forEach(button => {
+    setStatusClass(button, button.dataset.correct)
+  })
+  if (shuffledQuestions.length > currentQuestionIndex + 1) {
+    nextButton.classList.remove('hide')
+  } else {
+    startButton.innerText = 'Restart'
+    startButton.classList.remove('hide')
+  }
+}
+
+function setStatusClass(element, correct) {
+  clearStatusClass(element)
+  if (correct) {
+    element.classList.add('correct')
+  } else {
+    element.classList.add('wrong')
+  }
+}
+
+function clearStatusClass(element) {
+  element.classList.remove('correct')
+  element.classList.remove('wrong')
+}
+
+
+
+var questions = [
+  {
+    question: 'Who was the first president of the United States?',
+    answers: [
+      { text: 'Abraham Lincoln', correct: false },
+      { text: 'James Monroe', correct: false },
+      { text: 'George Washington', correct: true},
+      { text: 'Thomas Jefferson', correct: false }
+    ]
+  },
+  {
+    question: 'When was the Declaration of Independence signed?',
+    answers: [
+      { text: '1670', correct: false },
+      { text: '1776', correct: true },
+      { text: '1870', correct: false },
+      { text: '1920', correct: false }
+    ]
+  },
+  {
+    question: 'Who was the youngest president of the USA?',
+    answers: [
+      { text: 'Barack Obama', correct: false },
+      { text: 'Theodore Roosevelt', correct: true },
+      { text: 'Andrew Jackson', correct: false },
+      { text: 'John Tyler', correct: false }
+    ]
+  },
+  {
+    question: 'What is the largest State in the USA?',
+    answers: [
+      { text: 'Texas', correct: false },
+      { text: 'New York', correct: false },
+      { text: 'California', correct: false },
+      { text: 'Alaska', correct: true }
+
+    ]
+  }
+]
+
+       
+
+        function next001() {
+            if (a == "2") {
+                message001.innerHTML = question001[1];
+                message002.innerHTML = options002;
+                message003.innerHTML = "";
+                number001.innerHTML = a++;
+                message004.innerHTML = "";
+            }
+
+            else if (a == "3") {
+                message001.innerHTML = question001[2];
+                message002.innerHTML = options003;
+                message003.innerHTML = "";
+                number001.innerHTML = a++;
+                message004.innerHTML = "";
+            }
+
+            else if (a == "4") {
+                message001.innerHTML = question001[3];
+                message002.innerHTML = options004;
+                message003.innerHTML = "";
+                number001.innerHTML = a++;
+                message004.innerHTML = "";
+            }
+
+            else if (a == "5") {
+                message001.innerHTML = question001[4];
+                message002.innerHTML = options005;
+                message003.innerHTML = "";
+                number001.innerHTML = a++;
+                message004.innerHTML = "";
+            }
+
+            else if (a == "6") {
+                message001.innerHTML = question001[5];
+                message002.innerHTML = options006;
+                message003.innerHTML = "";
+                number001.innerHTML = a++;
+                message004.innerHTML = "";
+            }
+
+            else if (a == "7") {
+                message001.innerHTML = question001[6];
+                message002.innerHTML = options007;
+                message003.innerHTML = "";
+                number001.innerHTML = a++;
+                message004.innerHTML = "";
+            }
+
+            else if (a == "8") {
+                message001.innerHTML = question001[7];
+                message002.innerHTML = options008;
+                message003.innerHTML = "";
+                number001.innerHTML = a++;
+                message004.innerHTML = "";
+            }
+
+            else if (a == "9") {
+                message001.innerHTML = question001[8];
+                message002.innerHTML = options009;
+                message003.innerHTML = "";
+                number001.innerHTML = a++;
+                message004.innerHTML = "";
+            }
+
+            else if (a == "10") {
+                message001.innerHTML = question001[9];
+                message002.innerHTML = options010;
+                message003.innerHTML = "";
+                number001.innerHTML = a++;
+                message004.innerHTML = "";
+            } else {
+                window.clearInterval(update);
+                c = "-";
+                message001.innerHTML = "End of Quiz";
+                message002.innerHTML = "";
+                message003.innerHTML = "";
+                message004.innerHTML = "<button class=buttons002 onclick=repeat001()>Repeat</button>";
+            }
+        }
+
+        function timer001() {
+            c = c - 1;
+            if (c < 200) {
+                time001.innerHTML = c;
+            }
+
+            if (c < 1) {
+                window.clearInterval(update);
+                message001.innerHTML = "Time's up";
+                message002.innerHTML = "";
+                message003.innerHTML = "";
+                message004.innerHTML = "<button class=buttons002 onclick=repeat001()>Repeat</button>";
+            }
+        }
+
+        update = setInterval("timer001()", 1000);
+
+        function repeat001() {
+            location.reload();
+        }
+    </script>
 </body>
 </html>
-
